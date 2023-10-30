@@ -3,28 +3,48 @@ package copyfox;
 class Node{
     private byte[] dataStore;
     private Node nextNode;
+    private int dataStart;
+    private int dataEnd;
+    
     Node(){
         this.dataStore=new byte[100];
         this.nextNode=null;
+        this.dataStart=0;
+        this.dataEnd=0;
     }
 
-    void storeData(byte[] foreignData,int offset){
+    void storeDataInNode(byte[] foreignData,int offset){
         int foreignDataLength=foreignData.length;
-        int i; 
-        for(i=0;i<100&&i<foreignDataLength;i++){
-            this.dataStore[i]=foreignData[i]; 
+        
+        int k=offset;
+        int i=0;
+        this.dataStart=0;
+
+        while(i<100&&k<foreignDataLength){
+            this.dataStore[i]=foreignData[k];
+            i++;k++;
         }
-        int j,k=i;
+        i=this.dataEnd;
 
         if(k<foreignDataLength-1){
-            //more foreign data
             this.nextNode=new Node();
-            this.nextNode.storeData(foreignData,k);
+            this.nextNode.storeDataInNode(foreignData,k);
         }
+        
     }
+
+    byte[] getDataFromNode(){}
 }
 
 //store in bytes and send back data 
 public class BufferStore {
+    private Node rootNode;
     
+    void storeData(){
+        if(this.rootNode==null){
+            rootNode=new Node();
+        }
+
+
+    }
 }
