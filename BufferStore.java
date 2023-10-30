@@ -32,7 +32,6 @@ class Node{
         }
         
     }
-
     byte[] getDataFromNode(){}
 }
 
